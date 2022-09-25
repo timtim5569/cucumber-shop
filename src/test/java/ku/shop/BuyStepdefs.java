@@ -28,9 +28,21 @@ public class BuyStepdefs {
         order.addItem(prod, quantity);
     }
 
+    @When("Customer buy {string} with quantity {int}")
+    public void customer_buy_with_quantity(String name, int quantity) {
+        Product prod = catalog.getProduct(name);
+        prod.cutStock(quantity);
+    }
+
     @Then("total should be {float}")
     public void total_should_be(double total) {
         assertEquals(total, order.getTotal());
+    }
+
+
+    @Then("{string} stock should be remain {int}")
+    public void stock_should_be_remain(String name , int quantity) {
+        assertEquals(quantity, catalog.getProduct(name).getStock());
     }
 }
 
